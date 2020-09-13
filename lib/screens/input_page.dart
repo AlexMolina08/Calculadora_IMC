@@ -25,19 +25,21 @@ class _InputPageState extends State<InputPage> {
               Expanded(
                 child: Row(
                   children: [
-                    InputCard(),
-                    InputCard()
+                    InputCard(color: Color(0xFF1D1F33)),
+                    SizedBox(width: 10.0,),
+                    InputCard(color: Color(0xFF1D1F33))
                   ],
                 ),
               ),
               SizedBox(height: 10.0,),
-              InputCard(),
+              InputCard(color: Color(0xFF1D1F33)),
               SizedBox(height: 10.0,),
               Expanded(
                 child: Row(
                   children: [
-                    InputCard(),
-                    InputCard()
+                    InputCard(color: Color(0xFF1D1F33)),
+                    SizedBox(width: 10.0,),
+                    InputCard(color: Color(0xFF1D1F33))
                   ],
                 ),
               ),

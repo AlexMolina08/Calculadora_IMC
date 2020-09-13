@@ -8,7 +8,7 @@ class ImcCalculator extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Calculadora IMC',
-      theme: ThemeData.light().copyWith(
+      theme: ThemeData(
             primaryColor: Color(0xff0A0D22),
             scaffoldBackgroundColor: Color(0xff0A0D22),
             textTheme: TextTheme(
