@@ -32,6 +32,7 @@ class _InputPageState extends State<InputPage> {
         child: Container(
           child: Column(
             children: [
+              // --- GENERO ----
               Expanded(
                 flex: 5,
                 child: Row(
@@ -75,6 +76,7 @@ class _InputPageState extends State<InputPage> {
               SizedBox(
                 height: 10.0,
               ),
+              //---- ALTURA ----
               Expanded(
                 flex: 5,
                 child: InputCard(
@@ -92,25 +94,33 @@ class _InputPageState extends State<InputPage> {
                         crossAxisAlignment: CrossAxisAlignment.baseline,
                         //textBaseline: TextBaseline.alphabetic,
                         children: [
-                          Text(
-                            _height.toString(),
-                            style: kNumberTextStyle
-                          ),
+                          Text(_height.toString(), style: kNumberTextStyle),
                           Text(
                             'cm',
                             style: kIconTextStyle,
                           )
                         ],
                       ),
-                      Slider(
-                        value: _height.toDouble(),
-                        min: kMinHeight,
-                        activeColor: kCalculateButtonColor,
-                        inactiveColor: kInactiveSlimeColor,
-                        max: kMaxHeight,
-                        onChanged: (double newValue){
-                          setState(() => _height = newValue.round());
-                        },
+                      SliderTheme(
+                        data: SliderTheme.of(context).copyWith(
+                          thumbShape:
+                            RoundSliderThumbShape(enabledThumbRadius: kThumbRadius),
+                          overlayShape:
+                            RoundSliderOverlayShape(overlayRadius: kOverlayRadius),
+                          thumbColor: kThumbColor,
+                          overlayColor: kOverlayColor,
+                          inactiveTrackColor: kInactiveSlimeColor,
+                          activeTrackColor: kActiveSlimeColor
+
+                        ),
+                        child: Slider(
+                          value: _height.toDouble(),
+                          min: kMinHeight,
+                          max: kMaxHeight,
+                          onChanged: (double newValue) {
+                            setState(() => _height = newValue.round());
+                          },
+                        ),
                       )
                     ],
                   ),
@@ -119,15 +129,36 @@ class _InputPageState extends State<InputPage> {
               SizedBox(
                 height: 10.0,
               ),
+              // --- EDAD Y PESO
               Expanded(
                 flex: 5,
                 child: Row(
                   children: [
-                    Expanded(flex: 5, child: InputCard(color: kInputCardColor)),
+                    Expanded(
+                      flex: 5,
+                      child: InputCard(
+                        color: kInputCardColor,
+                        child: Column(
+                          children: [
+                            Text('EDAD' , style: kIconTextStyle,),
+                            Text('22' , style: kNumberTextStyle,),
+                            Row(
+                              children: [
+
+
+                              ],
+                            )
+                          ],
+                        )
+                      ),
+                    ),
                     SizedBox(
                       width: 10.0,
                     ),
-                    Expanded(flex: 5, child: InputCard(color: kInputCardColor))
+                    Expanded(
+                      flex: 5,
+                      child: InputCard(color: kInputCardColor),
+                    )
                   ],
                 ),
               ),
