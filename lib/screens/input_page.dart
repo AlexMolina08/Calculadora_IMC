@@ -8,6 +8,11 @@ const calculateButtonColor = Color(0xFFEB1555);
 const inputCardColor = Color(0xFF24263B);
 const unselectedCardColor = Color(0xFF11152d);
 
+enum Gender {
+ men,
+ women
+}
+
 class InputPage extends StatefulWidget {
   @override
   _InputPageState createState() => _InputPageState();
@@ -18,23 +23,23 @@ class _InputPageState extends State<InputPage> {
   Color womenCardColor = unselectedCardColor;
 
   //1 = hombre , 2 = mujer
-  void updateColor(int gender) {
+  void updateColor(Gender gender) {
     switch(gender) {
-      case 1:
+      case Gender.men:
         {
           if (manCardColor == unselectedCardColor) {
             manCardColor = inputCardColor;
-            if (womenCardColor == inputCardColor) womenCardColor = unselectedCardColor;
+            womenCardColor = unselectedCardColor;
           } else {
             manCardColor = unselectedCardColor;
           }
         }
         break;
-      case 2:
+      case Gender.women:
         {
           if (womenCardColor == unselectedCardColor) {
             womenCardColor = inputCardColor;
-            if (manCardColor == inputCardColor) manCardColor = unselectedCardColor;
+            manCardColor = unselectedCardColor;
           } else {
             womenCardColor = unselectedCardColor;
           }
@@ -65,7 +70,7 @@ class _InputPageState extends State<InputPage> {
                       flex: 5,
                       child: GestureDetector(
                         onTap: (){
-                          setState(() => updateColor(1));
+                          setState(() => updateColor(Gender.men));
                         },
                         child: InputCard(
                           color: manCardColor,
@@ -84,7 +89,7 @@ class _InputPageState extends State<InputPage> {
                       flex: 5,
                       child: GestureDetector(
                         onTap: (){
-                          setState( () => updateColor(2));
+                          setState( () => updateColor(Gender.women));
                         },
                         child: InputCard(
                             color: womenCardColor,
