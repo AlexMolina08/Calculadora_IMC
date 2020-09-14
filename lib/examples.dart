@@ -1,19 +1,21 @@
-enum CarType{
-  turismo,
-  furgoneta,
-  motocicleta,
-  SUV
-}
+
 
 void main(){
 
-  Car myCar = Car(carStyle: CarType.furgoneta);
-  print(myCar.carStyle.toString());
+  Car myCar = Car(drive: fastDrive);
+
+  myCar.drive();
+
 
 }
+
 
 class Car{
-  CarType carStyle;
+  Function drive;
 
-  Car({this.carStyle});
+  Car({this.drive});
+
 }
+
+void slowDrive(int carNumber) => print("Conduciendo lento ... soy el coche $carNumber");
+void fastDrive() => print("Conduciendo rápido !!!");
