@@ -1,8 +1,11 @@
+import 'package:calculadora_imc/customWidgets/custom_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:calculadora_imc/customWidgets/input_card.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:calculadora_imc/customWidgets/icon_with_text.dart';
 import 'package:calculadora_imc/constants.dart';
+import 'package:calculadora_imc/customWidgets/custom_button.dart';
 
 enum Gender {
   man,
@@ -16,7 +19,19 @@ class InputPage extends StatefulWidget {
 
 class _InputPageState extends State<InputPage> {
   Gender _selectedGender;
-  int _height = 120; //altura en cm
+  int _height; //altura en cm
+  int _age;
+  int _weight;
+  CustomSlider heightSlider = CustomSlider();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _height = 120;
+    _age = 22;
+    _weight = 70;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,96 +95,181 @@ class _InputPageState extends State<InputPage> {
               Expanded(
                 flex: 5,
                 child: InputCard(
-                  color: kInputCardColor,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'ALTURA',
-                        style: kIconTextStyle,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.baseline,
-                        //textBaseline: TextBaseline.alphabetic,
-                        children: [
-                          Text(_height.toString(), style: kNumberTextStyle),
-                          Text(
-                            'cm',
-                            style: kIconTextStyle,
-                          )
-                        ],
-                      ),
-                      SliderTheme(
-                        data: SliderTheme.of(context).copyWith(
-                          thumbShape:
-                            RoundSliderThumbShape(enabledThumbRadius: kThumbRadius),
-                          overlayShape:
-                            RoundSliderOverlayShape(overlayRadius: kOverlayRadius),
-                          thumbColor: kThumbColor,
-                          overlayColor: kOverlayColor,
-                          inactiveTrackColor: kInactiveSlimeColor,
-                          activeTrackColor: kActiveSlimeColor
-
+                    color: kInputCardColor,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        SizedBox(
+                          height: 20.0,
                         ),
-                        child: Slider(
-                          value: _height.toDouble(),
-                          min: kMinHeight,
-                          max: kMaxHeight,
-                          onChanged: (double newValue) {
-                            setState(() => _height = newValue.round());
-                          },
+                        Text(
+                          'ALTURA',
+                          textAlign: TextAlign.center,
+                          style: kIconTextStyle,
                         ),
-                      )
-                    ],
-                  ),
-                ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          children: [
+                            Text(
+                              _height.toString(),
+                              style: kNumberTextStyle,
+                            ),
+                            Text(
+                              'cm',
+                              style: kIconTextStyle,
+                            )
+                          ],
+                        ),
+                        Expanded(
+                            child: SliderTheme(
+                          //cogemos este sliderTheme y le copiamos el nuevo SliderThemeData
+                          data: SliderTheme.of(context).copyWith(
+                            thumbColor: kThumbColor,
+                            overlayColor: kOverlayColor,
+                            overlayShape: RoundSliderOverlayShape(
+                                overlayRadius: kOverlayRadius),
+                            thumbShape: RoundSliderThumbShape(
+                                enabledThumbRadius: kThumbRadius),
+                            activeTrackColor: kActiveSlimeColor,
+                            inactiveTrackColor: kInactiveSlimeColor,
+                          ),
+                          child: Slider(
+                            value: _height.toDouble(),
+                            min: kMinHeight,
+                            max: kMaxHeight,
+                            //La instancia onchanged recibe una funcion (callback) que recibe como parametro
+                            //el nuevo valor que toma el value (_height aqui)
+                            onChanged: (double newHeight) {
+                              setState(() => _height = newHeight.round());
+                            },
+                          ),
+                        ))
+                      ],
+                    )),
               ),
               SizedBox(
                 height: 10.0,
               ),
+
               // --- EDAD Y PESO
+
               Expanded(
                 flex: 5,
                 child: Row(
                   children: [
                     Expanded(
                       flex: 5,
+                      //-- EDAD ----
                       child: InputCard(
-                        color: kInputCardColor,
-                        child: Column(
-                          children: [
-                            Text('EDAD' , style: kIconTextStyle,),
-                            Text('22' , style: kNumberTextStyle,),
-                            Row(
-                              children: [
-
-
-                              ],
-                            )
-                          ],
-                        )
-                      ),
+                          color: kInputCardColor,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'EDAD',
+                                style: kIconTextStyle,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.baseline,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    _age.toString(),
+                                    style: kNumberTextStyle,
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  CustomButton(
+                                      icon: Icons.remove,
+                                      onPressed: () {
+                                        setState(() => _age--);
+                                      }),
+                                  SizedBox(
+                                    width: 20.0,
+                                  ),
+                                  CustomButton(
+                                    icon: Icons.add,
+                                    onPressed: () {
+                                      setState(() => _age++);
+                                    },
+                                  ),
+                                ],
+                              )
+                            ],
+                          )),
                     ),
                     SizedBox(
                       width: 10.0,
                     ),
+                    //---PESO---
                     Expanded(
                       flex: 5,
-                      child: InputCard(color: kInputCardColor),
+                      child: InputCard(
+                        color: kInputCardColor,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'PESO',
+                              style: kIconTextStyle,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.baseline,
+                              children: [
+                                Text(
+                                  _weight.toString(),
+                                  style: kNumberTextStyle,
+                                ),
+                                Text(
+                                  'kg',
+                                  style: kIconTextStyle,
+                                )
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CustomButton(icon: Icons.remove, onPressed: (){
+                                  setState( () => _weight -- );
+                                }),
+                                SizedBox(width: 20.0,),
+                                CustomButton(
+                                    icon: Icons.add,
+                                    onPressed: () {
+                                      setState(
+                                        () => _weight++,
+                                      );
+                                    },
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
                     )
                   ],
                 ),
               ),
-              Container(
-                width: double.infinity,
-                height: kCalculateButtonHeight,
-                margin: EdgeInsets.only(top: 10.0),
-                decoration: BoxDecoration(
-                    color: kCalculateButtonColor,
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(15.0))),
+              //--- CALCULATE BUTTON
+              GestureDetector(
+                onTap: () {
+                  print('Genero:$_selectedGender\nAltura: $_height');
+                },
+                child: Container(
+                  width: double.infinity,
+                  height: kCalculateButtonHeight,
+                  margin: EdgeInsets.only(top: 10.0),
+                  decoration: BoxDecoration(
+                      color: kCalculateButtonColor,
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(15.0))),
+                ),
               ),
             ],
           ),
