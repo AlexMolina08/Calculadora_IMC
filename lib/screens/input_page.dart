@@ -269,6 +269,12 @@ class _InputPageState extends State<InputPage> {
                       color: kCalculateButtonColor,
                       borderRadius:
                           BorderRadius.vertical(top: Radius.circular(15.0))),
+                  child: Center(
+                    child: Text(
+                      'CALCULAR',
+                      style: kCalculateButtonTextStyle,
+                    ),
+                  ),
                 ),
               ),
             ],

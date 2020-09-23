@@ -3,11 +3,19 @@ import 'package:flutter/painting.dart';
 
 const double kCalculateButtonHeight = 80.0;
 const double kThumbRadius = 15.0; //Radio del circulo del Slider
-const double kOverlayRadius = 10.0;
+const double kOverlayRadius = 20.0;
 const double kMinHeight = 120;
 const double kMaxHeight = 210;
 const double kIconSize = 100.0;
 
+
+const TextStyle kCalculateButtonTextStyle = TextStyle(
+  color: Colors.white,
+  fontSize: 25.0,
+  fontFamily: 'Futura',
+  letterSpacing: 3.0,
+  fontWeight: FontWeight.bold
+  );
 const BoxConstraints kButtonConstraints =
   BoxConstraints.tightFor(
     width: 50.0,
