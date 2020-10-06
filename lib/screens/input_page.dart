@@ -39,7 +39,7 @@ class _InputPageState extends State<InputPage> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Calculadora IMC',
+          'Indice de Masa Corporal',
         ),
         elevation: 20.0,
       ),
@@ -124,27 +124,27 @@ class _InputPageState extends State<InputPage> {
                         ),
                         Expanded(
                             child: SliderTheme(
-                          //cogemos este sliderTheme y le copiamos el nuevo SliderThemeData
-                          data: SliderTheme.of(context).copyWith(
-                            thumbColor: kThumbColor,
-                            overlayColor: kOverlayColor,
-                            overlayShape: RoundSliderOverlayShape(
-                                overlayRadius: kOverlayRadius),
-                            thumbShape: RoundSliderThumbShape(
-                                enabledThumbRadius: kThumbRadius),
-                            activeTrackColor: kActiveSlimeColor,
-                            inactiveTrackColor: kInactiveSlimeColor,
-                          ),
-                          child: Slider(
-                            value: _height.toDouble(),
-                            min: kMinHeight,
-                            max: kMaxHeight,
-                            //La instancia onchanged recibe una funcion (callback) que recibe como parametro
-                            //el nuevo valor que toma el value (_height aqui)
-                            onChanged: (double newHeight) {
-                              setState(() => _height = newHeight.round());
-                            },
-                          ),
+                            //cogemos este sliderTheme y le copiamos el nuevo SliderThemeData
+                            data: SliderTheme.of(context).copyWith(
+                              thumbColor: kThumbColor,
+                              overlayColor: kOverlayColor,
+                              overlayShape: RoundSliderOverlayShape(
+                                  overlayRadius: kOverlayRadius),
+                              thumbShape: RoundSliderThumbShape(
+                                  enabledThumbRadius: kThumbRadius),
+                              activeTrackColor: kActiveSlimeColor,
+                              inactiveTrackColor: kInactiveSlimeColor,
+                            ),
+                              child: Slider(
+                                value: _height.toDouble(),
+                                min: kMinHeight,
+                                max: kMaxHeight,
+                                //La instancia onchanged recibe una funcion (callback) que recibe como parametro
+                                //el nuevo valor que toma el value (_height aqui)
+                                onChanged: (double newHeight) {
+                                  setState(() => _height = newHeight.round());
+                                },
+                              ),
                         ))
                       ],
                     )),
@@ -152,9 +152,7 @@ class _InputPageState extends State<InputPage> {
               SizedBox(
                 height: 10.0,
               ),
-
               // --- EDAD Y PESO
-
               Expanded(
                 flex: 5,
                 child: Row(
@@ -256,10 +254,13 @@ class _InputPageState extends State<InputPage> {
                   ],
                 ),
               ),
+
+
               //--- CALCULATE BUTTON
               GestureDetector(
                 onTap: () {
                   print('Genero:$_selectedGender\nAltura: $_height');
+                  Navigator.pushNamed(context, '/results');
                 },
                 child: Container(
                   width: double.infinity,
