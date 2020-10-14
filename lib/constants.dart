@@ -38,6 +38,26 @@ const TextStyle kIconTextStyle = TextStyle(
     color: Color(0xff37474f),
     letterSpacing: 1.5
 );
+
+//usado para el texto "tus resultados"
+const TextStyle kTitleTextStyle = TextStyle(
+  fontSize: 45.0,
+  fontWeight: FontWeight.w900,
+  color: Colors.white,
+);
+
+const TextStyle kTitleResultTextStyle = TextStyle(
+  fontSize: 30.0,
+  fontWeight: FontWeight.w900,
+  color: Color(0xff8bc34a)
+);
+
+const TextStyle kDescriptionTextStyle = TextStyle(
+  fontSize: 20.0,
+  fontWeight: FontWeight.w400,
+  color: Color(0xffbdbdbd),
+);
+
 const TextStyle kNumberTextStyle = TextStyle(
   fontSize: 80.0,
   fontWeight: FontWeight.w900,

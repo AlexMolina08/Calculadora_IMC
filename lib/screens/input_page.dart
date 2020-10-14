@@ -6,6 +6,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:calculadora_imc/customWidgets/icon_with_text.dart';
 import 'package:calculadora_imc/constants.dart';
 import 'package:calculadora_imc/customWidgets/custom_button.dart';
+import 'package:calculadora_imc/screens/results.dart';
+import 'package:calculadora_imc/customWidgets/calculate_button.dart';
 
 enum Gender {
   man,
@@ -257,27 +259,49 @@ class _InputPageState extends State<InputPage> {
 
 
               //--- CALCULATE BUTTON
-              GestureDetector(
-                onTap: () {
-                  print('Genero:$_selectedGender\nAltura: $_height');
-                  Navigator.pushNamed(context, '/results');
-                },
-                child: Container(
-                  width: double.infinity,
-                  height: kCalculateButtonHeight,
-                  margin: EdgeInsets.only(top: 10.0),
-                  decoration: BoxDecoration(
-                      color: kCalculateButtonColor,
-                      borderRadius:
-                          BorderRadius.vertical(top: Radius.circular(15.0))),
-                  child: Center(
-                    child: Text(
-                      'CALCULAR',
-                      style: kCalculateButtonTextStyle,
-                    ),
-                  ),
-                ),
-              ),
+
+              CalculateButton(
+                  onTap: (){
+                    Navigator.pushNamed(context , '/results');
+                  },
+                  buttonMessage: "CALCULAR")
+
+
+
+              // GestureDetector(
+              //   /*
+              //   * Al pulsar calcular , debemos poner en la pila ResultsPage
+              //   * 2 Opciones:
+              //   *   -Navigator.push
+              //   *   -Navigator.pushNamed (más limpia)
+              //   * */
+              //   onTap: () {
+              //     print('Genero:$_selectedGender\nAltura: $_height');
+              //
+              //     //Opcion 1
+              //     /*Navigator.push(context , MaterialPageRoute(builder: (context){
+              //       return ResultsPage();
+              //     }));*/
+              //
+              //     //Opcion 2
+              //     Navigator.pushNamed(context, '/results');
+              //   },
+              //   child: Container(
+              //     width: double.infinity,
+              //     height: kCalculateButtonHeight,
+              //     margin: EdgeInsets.only(top: 10.0),
+              //     decoration: BoxDecoration(
+              //         color: kCalculateButtonColor,
+              //         borderRadius:
+              //             BorderRadius.vertical(top: Radius.circular(15.0))),
+              //     child: Center(
+              //       child: Text(
+              //         'CALCULAR',
+              //         style: kCalculateButtonTextStyle,
+              //       ),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
