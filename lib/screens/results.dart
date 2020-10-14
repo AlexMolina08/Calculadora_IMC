@@ -4,6 +4,13 @@ import 'package:calculadora_imc/customWidgets/calculate_button.dart';
 import 'package:flutter/material.dart';
 
 class ResultsPage extends StatelessWidget {
+
+  final String result_imc;
+  final String result_text;
+  final String interpretation;
+
+  ResultsPage({@required this.result_imc , @required this.result_text , @required this.interpretation});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,19 +40,19 @@ class ResultsPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(
-                          'Peso Ideal',
+                          result_text,
                           style: kTitleResultTextStyle,
                         ),
                         Container(
                           child: Text(
-                            '26.7',
+                            result_imc,
                             style: kNumberTextStyle,
                           ),
                         ),
                         Container(
                             padding: EdgeInsets.symmetric(horizontal:20.0),
                             child: Text(
-                              "gdfnsñjkhgsfjidkbgsjikdfbngklñsdfjbgipsdbfgipusbgipusbgisup",
+                              interpretation,
                               style: kDescriptionTextStyle,
                               textAlign: TextAlign.center,
                             ))

@@ -1,4 +1,5 @@
 import 'package:calculadora_imc/customWidgets/custom_slider.dart';
+import 'package:calculadora_imc/screens/results.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:calculadora_imc/customWidgets/input_card.dart';
@@ -6,8 +7,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:calculadora_imc/customWidgets/icon_with_text.dart';
 import 'package:calculadora_imc/constants.dart';
 import 'package:calculadora_imc/customWidgets/custom_button.dart';
-import 'package:calculadora_imc/screens/results.dart';
 import 'package:calculadora_imc/customWidgets/calculate_button.dart';
+import 'package:calculadora_imc/calculator_brain.dart';
 
 enum Gender {
   man,
@@ -126,27 +127,27 @@ class _InputPageState extends State<InputPage> {
                         ),
                         Expanded(
                             child: SliderTheme(
-                            //cogemos este sliderTheme y le copiamos el nuevo SliderThemeData
-                            data: SliderTheme.of(context).copyWith(
-                              thumbColor: kThumbColor,
-                              overlayColor: kOverlayColor,
-                              overlayShape: RoundSliderOverlayShape(
-                                  overlayRadius: kOverlayRadius),
-                              thumbShape: RoundSliderThumbShape(
-                                  enabledThumbRadius: kThumbRadius),
-                              activeTrackColor: kActiveSlimeColor,
-                              inactiveTrackColor: kInactiveSlimeColor,
-                            ),
-                              child: Slider(
-                                value: _height.toDouble(),
-                                min: kMinHeight,
-                                max: kMaxHeight,
-                                //La instancia onchanged recibe una funcion (callback) que recibe como parametro
-                                //el nuevo valor que toma el value (_height aqui)
-                                onChanged: (double newHeight) {
-                                  setState(() => _height = newHeight.round());
-                                },
-                              ),
+                          //cogemos este sliderTheme y le copiamos el nuevo SliderThemeData
+                          data: SliderTheme.of(context).copyWith(
+                            thumbColor: kThumbColor,
+                            overlayColor: kOverlayColor,
+                            overlayShape: RoundSliderOverlayShape(
+                                overlayRadius: kOverlayRadius),
+                            thumbShape: RoundSliderThumbShape(
+                                enabledThumbRadius: kThumbRadius),
+                            activeTrackColor: kActiveSlimeColor,
+                            inactiveTrackColor: kInactiveSlimeColor,
+                          ),
+                          child: Slider(
+                            value: _height.toDouble(),
+                            min: kMinHeight,
+                            max: kMaxHeight,
+                            //La instancia onchanged recibe una funcion (callback) que recibe como parametro
+                            //el nuevo valor que toma el value (_height aqui)
+                            onChanged: (double newHeight) {
+                              setState(() => _height = newHeight.round());
+                            },
+                          ),
                         ))
                       ],
                     )),
@@ -235,17 +236,21 @@ class _InputPageState extends State<InputPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                CustomButton(icon: Icons.remove, onPressed: (){
-                                  setState( () => _weight -- );
-                                }),
-                                SizedBox(width: 20.0,),
                                 CustomButton(
-                                    icon: Icons.add,
+                                    icon: Icons.remove,
                                     onPressed: () {
-                                      setState(
-                                        () => _weight++,
-                                      );
-                                    },
+                                      setState(() => _weight--);
+                                    }),
+                                SizedBox(
+                                  width: 20.0,
+                                ),
+                                CustomButton(
+                                  icon: Icons.add,
+                                  onPressed: () {
+                                    setState(
+                                      () => _weight++,
+                                    );
+                                  },
                                 ),
                               ],
                             )
@@ -257,16 +262,25 @@ class _InputPageState extends State<InputPage> {
                 ),
               ),
 
-
               //--- CALCULATE BUTTON
 
               CalculateButton(
-                  onTap: (){
-                    Navigator.pushNamed(context , '/results');
+                  onTap: () {
+                    CalculatorBrain calculator =
+                        CalculatorBrain(height: _height, weight: _weight);
+
+                    //Navigator.pushNamed(context , '/results' , bmi);
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ResultsPage(
+                              result_imc: calculator.calculateIMC(),
+                              result_text: calculator.getResult(),
+                              interpretation: calculator.getInterpretation())),
+                    );
                   },
                   buttonMessage: "CALCULAR")
-
-
 
               // GestureDetector(
               //   /*
